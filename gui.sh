@@ -2,8 +2,7 @@
 
 sudo apt-get update && sudo apt-get upgrade -y
 
-sudo apt-get install lightdm -y
-sudo dpkg-reconfigure lightdm
+sudo DEBIAN_FRONTEND="noninteractive" apt-get install lightdm -y
 sudo systemctl start lightdm
 
 sudo apt-get install tasksel -y
