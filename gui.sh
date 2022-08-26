@@ -1,9 +1,9 @@
 #!/bin/sh
-ls
 
 sudo apt-get update && sudo apt-get upgrade -y
 
 sudo apt-get install lightdm -y
+sudo dpkg-reconfigure lightdm
 sudo systemctl start lightdm
 
 sudo apt-get install tasksel -y
