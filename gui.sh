@@ -22,4 +22,4 @@ sudo mkswap /swapfile
 sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
 
-reboot
+sudo reboot
