@@ -15,6 +15,9 @@ sudo apt-get install ./google-chrome-stable_current_amd64.deb -y
 
 sudo adduser macit -c 'Macit' --disabled-password --gecos 'Macit,,,'
 
+wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
+sudo apt install ./chrome-remote-desktop_current_amd64.deb -y
+
 sudo fallocate -l 1G /swapfile
 sudo chmod 600 /swapfile
 sudo mkswap /swapfile
