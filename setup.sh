@@ -15,7 +15,7 @@ sudo DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=1 apt-get -o Dpkg::Option
 echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
 
 # Install Ubuntu desktop environment
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ubuntu-desktop
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends lubuntu-desktop
 
 # Add user 'macit' without asking for password and other details
 sudo adduser macit --disabled-password --gecos 'Macit,,,'
