@@ -40,7 +40,7 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 echo "Installing Chrome Remote Desktop..."
 sudo kill -9 $(lsof -t /var/lib/dpkg/lock-frontend)
 wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get install -y xvfb xserver-xorg-video-dummy xbase-clients python3-packaging python3-psutil python3-xdg libgbm1
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb xserver-xorg-video-dummy xbase-clients python3-packaging python3-psutil python3-xdg libgbm1
 sudo DEBIAN_FRONTEND=noninteractive dpkg -i chrome-remote-desktop_current_amd64.deb
 
 # Install Chromium on Ubuntu Desktop
