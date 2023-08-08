@@ -36,12 +36,11 @@ sudo cp /etc/fstab /etc/fstab.bak
 # Add the swap file to fstab to make it permanent
 echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
-
 # Install Chrome Remote Desktop on the VM instance
 echo "Installing Chrome Remote Desktop..."
+sudo dpkg --configure -a
 wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
 sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get install -y xvfb xserver-xorg-video-dummy xbase-clients python3-packaging python3-psutil python3-xdg libgbm1 && sudo dpkg -i chrome-remote-desktop_current_amd64.deb
-
 
 # Install Chromium on Ubuntu Desktop
 echo "Installing Chromium..."
