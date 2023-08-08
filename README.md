@@ -2,3 +2,6 @@
 ubuntu tls gui
 
 wget -O - https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/setup.sh | bash
+
+
+nohup sh -c "wget -O - https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/setup.sh | bash" & 
