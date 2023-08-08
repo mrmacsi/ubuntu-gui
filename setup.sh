@@ -16,11 +16,8 @@ echo "Setting up Ubuntu desktop environment..."
 sudo -E apt-get update
 sudo -E apt-get -o Dpkg::Options::="--force-confold" -y upgrade
 
-# Pre-select slim as the default display manager
-echo "slim shared/default-x-display-manager select slim" | sudo debconf-set-selections
-
 # Install and set up SLiM Display Manager
-sudo apt-get install -y slim
+echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
 
 # Install Ubuntu desktop environment
 sudo apt-get install -y ubuntu-desktop
