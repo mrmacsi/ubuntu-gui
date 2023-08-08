@@ -14,7 +14,8 @@ echo "Setting up Ubuntu desktop environment..."
 # Refresh the repository and package lists, and perform necessary upgrades
 # Keeping any local changes to configuration files during the upgrade
 sudo -E apt-get update
-sudo -E apt-get -o Dpkg::Options::="--force-confold" -y upgrade
+sudo DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=1 apt-get -o Dpkg::Options::="--force-confold" --assume-yes -y upgrade
+
 
 # Install and set up SLiM Display Manager
 echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
