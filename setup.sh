@@ -17,11 +17,6 @@ echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
 # Install Ubuntu desktop environment
 sudo apt-get install --no-install-recommends lxde
 
-# Restarting the required services without prompts
-echo "Restarting services..."
-sudo systemctl restart multipathd.service
-sudo systemctl restart packagekit.service
-
 # Add user 'macit' without asking for password and other details
 sudo adduser macit --disabled-password --gecos 'Macit,,,'
 
