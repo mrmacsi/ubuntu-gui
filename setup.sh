@@ -23,12 +23,19 @@ sudo adduser macit --disabled-password --gecos 'Macit,,,'
 # Set a default password for the user 'macit'
 echo "macit:password" | sudo chpasswd
 
-# Create a swap file
+# Create a 1GB swap file
 sudo fallocate -l 1G /swapfile
+# Set the correct permissions for the swap file
 sudo chmod 600 /swapfile
+# Set up the swap space
 sudo mkswap /swapfile
+# Activate the swap file
 sudo swapon /swapfile
+# Backup the current fstab file
 sudo cp /etc/fstab /etc/fstab.bak
+# Add the swap file to fstab to make it permanent
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
 
 # Install Chrome Remote Desktop on the VM instance
 echo "Installing Chrome Remote Desktop..."
