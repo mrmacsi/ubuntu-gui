@@ -5,7 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 # Install Chrome Remote Desktop on the VM instance
 echo "Installing Chrome Remote Desktop..."
-wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
+wget -q https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
 sudo apt-get install --assume-yes ./chrome-remote-desktop_current_amd64.deb
 
 # Set up a Ubuntu desktop environment in the VM instance
@@ -28,7 +28,10 @@ sudo systemctl restart multipathd.service
 sudo systemctl restart packagekit.service
 
 # Add user 'macit' without asking for password and other details
-sudo adduser macit -c 'Macit' --disabled-password --gecos 'Macit,,,'
+sudo adduser macit --disabled-password --gecos 'Macit,,,'
+
+# Set a default password for the user 'macit'
+echo "macit:password" | sudo chpasswd
 
 # Create a swap file
 sudo fallocate -l 1G /swapfile
@@ -39,7 +42,7 @@ sudo cp /etc/fstab /etc/fstab.bak
 
 # Install Chromium on Ubuntu Desktop
 echo "Installing Chromium..."
-sudo snap install chromium
+sudo snap install chromium --classic
 
 # Reboot the machine
 echo "Rebooting machine..."
