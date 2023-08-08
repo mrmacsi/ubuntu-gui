@@ -23,8 +23,8 @@ sudo adduser macit --disabled-password --gecos 'Macit,,,'
 # Set a default password for the user 'macit'
 echo "macit:password" | sudo chpasswd
 
-# Create a 1GB swap file
-sudo fallocate -l 1G /swapfile
+# Create a 2GB swap file
+sudo fallocate -l 2G /swapfile
 # Set the correct permissions for the swap file
 sudo chmod 600 /swapfile
 # Set up the swap space
