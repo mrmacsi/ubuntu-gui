@@ -16,7 +16,6 @@ echo "Setting up Ubuntu desktop environment..."
 sudo -E apt-get update
 sudo DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=1 apt-get -o Dpkg::Options::="--force-confold" --assume-yes -y upgrade
 
-
 # Install and set up SLiM Display Manager
 echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
 
