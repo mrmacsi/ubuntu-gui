@@ -27,16 +27,24 @@ echo "Restarting services..."
 sudo systemctl restart multipathd.service
 sudo systemctl restart packagekit.service
 
-# Reboot the machine
-echo "Rebooting machine..."
-sudo reboot
+# Add user 'macit' without asking for password and other details
+sudo adduser macit -c 'Macit' --disabled-password --gecos 'Macit,,,'
 
-# Note: 
-# After reboot, the user needs to SSH back into the VM and continue with the setup of Chrome Remote Desktop 
-# by going to the respective website and following the provided steps there.
+# Install Chrome Remote Desktop
+wget -q https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
+sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq ./chrome-remote-desktop_current_amd64.deb
+
+# Create a swap file
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo cp /etc/fstab /etc/fstab.bak
 
 # Install Chromium on Ubuntu Desktop
 echo "Installing Chromium..."
 sudo snap install chromium
 
-echo "All tasks completed."
+# Reboot the machine
+echo "Rebooting machine..."
+sudo reboot
