@@ -21,7 +21,7 @@ sudo DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=1 apt-get -o Dpkg::Option
 echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
 
 # Install Ubuntu desktop environment
-sudo apt-get install -y ubuntu-desktop
+sudo apt-get install --no-install-recommends lxde
 
 # Restarting the required services without prompts
 echo "Restarting services..."
