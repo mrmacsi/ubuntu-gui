@@ -33,7 +33,8 @@ sudo cp /etc/fstab /etc/fstab.bak
 # Install Chrome Remote Desktop on the VM instance
 echo "Installing Chrome Remote Desktop..."
 wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo DEBIAN_FRONTEND=noninteractive dpkg -i chrome-remote-desktop_current_amd64.deb && sudo apt-get install -f -y
+sudo DEBIAN_FRONTEND=noninteractive apt-get update && sudo apt-get install -y xvfb xserver-xorg-video-dummy xbase-clients python3-packaging python3-psutil python3-xdg libgbm1 && sudo dpkg -i chrome-remote-desktop_current_amd64.deb
+
 
 # Install Chromium on Ubuntu Desktop
 echo "Installing Chromium..."
