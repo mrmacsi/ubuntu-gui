@@ -3,11 +3,6 @@
 # Handle dpkg prompts non-interactively (keep local changes to configuration files)
 export DEBIAN_FRONTEND=noninteractive
 
-# Install Chrome Remote Desktop on the VM instance
-echo "Installing Chrome Remote Desktop..."
-wget -q https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo apt-get install --assume-yes ./chrome-remote-desktop_current_amd64.deb
-
 # Set up a Ubuntu desktop environment in the VM instance
 echo "Setting up Ubuntu desktop environment..."
 
@@ -39,6 +34,11 @@ sudo chmod 600 /swapfile
 sudo mkswap /swapfile
 sudo swapon /swapfile
 sudo cp /etc/fstab /etc/fstab.bak
+
+# Install Chrome Remote Desktop on the VM instance
+echo "Installing Chrome Remote Desktop..."
+wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
+sudo DEBIAN_FRONTEND=noninteractive dpkg -i chrome-remote-desktop_current_amd64.deb && sudo apt-get install -f -y
 
 # Install Chromium on Ubuntu Desktop
 echo "Installing Chromium..."
