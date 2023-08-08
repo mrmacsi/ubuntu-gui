@@ -30,10 +30,6 @@ sudo systemctl restart packagekit.service
 # Add user 'macit' without asking for password and other details
 sudo adduser macit -c 'Macit' --disabled-password --gecos 'Macit,,,'
 
-# Install Chrome Remote Desktop
-wget -q https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb
-sudo DEBIAN_FRONTEND=noninteractive apt install -y -qq ./chrome-remote-desktop_current_amd64.deb
-
 # Create a swap file
 sudo fallocate -l 1G /swapfile
 sudo chmod 600 /swapfile
