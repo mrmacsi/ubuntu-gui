@@ -80,6 +80,8 @@ echo "------------------------------------"
 echo "Installing Mouse Moving Tool..."
 echo ""
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xdotool
+wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/move.sh -P /home/macit/
+chmod +x /home/macit/move.sh
 
 # Install Chromium browser
 echo ""
