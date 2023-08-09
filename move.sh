@@ -20,8 +20,11 @@ while true; do
     x=$((center_x + random_x))
     y=$((center_y + random_y))
 
+    # Log the coordinates to the terminal
+    echo "Moving mouse to: X=$x, Y=$y"
+
     # Move the mouse to the computed location
     xdotool mousemove $x $y
 
-    sleep 10  # Sleeps for 60 seconds (1 minute)
+    sleep 60  # Sleeps for 60 seconds (1 minute)
 done
