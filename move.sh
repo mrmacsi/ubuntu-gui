@@ -26,5 +26,5 @@ while true; do
     # Move the mouse to the computed location
     xdotool mousemove $x $y
 
-    sleep 60  # Sleeps for 60 seconds (1 minute)
+    sleep 10  # Sleeps for 60 seconds (1 minute)
 done
