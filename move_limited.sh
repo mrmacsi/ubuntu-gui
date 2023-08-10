@@ -12,7 +12,8 @@ echo "Script started at: $(date)" >> $logfile
 
 export DISPLAY=:20
 
-WINDOW_ID=37748738  # The ID of your Chromium window
+CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
+echo $CHROMIUM_ID
 
 # Extracting X and Y positions of the Chromium window
 X_POS=$(xdotool getwindowgeometry $WINDOW_ID | grep Position | awk '{print $2}' | cut -d',' -f1)
@@ -31,7 +32,7 @@ end_time=$(($(date +%s) + 30))
 
 while [[ $(date +%s) -lt $end_time ]]; do
     # Define a range for randomness, e.g., 300 pixels in any direction
-    range=300
+    range=200
 
     # Calculate random offsets from the center
     random_x=$((RANDOM % (range*2 + 1) - range))
