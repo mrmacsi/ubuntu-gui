@@ -15,6 +15,13 @@ export DISPLAY=:20
 
 # Get the second occurrence of a window named "chromium"
 CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
+
+# If CHROMIUM_ID is empty, echo an error message and exit
+if [ -z "$CHROMIUM_ID" ]; then
+    echo "Browser is closed." >&2
+    exit 1
+fi
+
 echo "Chromium Window ID: $CHROMIUM_ID" >> $logfile
 
 # Extracting X and Y positions of the Chromium window
