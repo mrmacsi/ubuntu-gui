@@ -12,18 +12,23 @@ echo "Script started at: $(date)" >> $logfile
 
 export DISPLAY=:20
 
-# Get the end time (current time + 1 minute)
+WINDOW_ID=37748738  # The ID of your Chromium window
+
+# Extracting details about the Chromium window
+GEOMETRY=$(xdotool getwindowgeometry $WINDOW_ID)
+WINDOW_WIDTH=$(echo $GEOMETRY | grep Geometry | awk '{print $2}' | cut -d'x' -f1)
+WINDOW_HEIGHT=$(echo $GEOMETRY | grep Geometry | awk '{print $2}' | cut -d'x' -f2 -s)
+X_POS=$(echo $GEOMETRY | grep Position | awk '{print $2}' | tr -d ',' | cut -d'x' -f1)
+Y_POS=$(echo $GEOMETRY | grep Position | awk '{print $2}' | tr -d ',' | cut -d'x' -f2)
+
+# Calculate the center of the Chromium window
+center_x=$((X_POS + WINDOW_WIDTH / 2))
+center_y=$((Y_POS + WINDOW_HEIGHT / 2))
+
+# Get the end time (current time + 30 seconds)
 end_time=$(($(date +%s) + 30))
 
 while [[ $(date +%s) -lt $end_time ]]; do
-    # Get screen width and height
-    screen_width=$(xdotool getdisplaygeometry | awk '{print $1}')
-    screen_height=$(xdotool getdisplaygeometry | awk '{print $2}')
-
-    # Calculate the center of the screen
-    center_x=$((screen_width / 2))
-    center_y=$((screen_height / 2))
-
     # Define a range for randomness, e.g., 300 pixels in any direction
     range=300
 
@@ -31,7 +36,7 @@ while [[ $(date +%s) -lt $end_time ]]; do
     random_x=$((RANDOM % (range*2 + 1) - range))
     random_y=$((RANDOM % (range*2 + 1) - range))
 
-    # Compute the final random coordinates near the center
+    # Compute the final random coordinates near the center of the Chromium window
     x=$((center_x + random_x))
     y=$((center_y + random_y))
 
@@ -41,7 +46,7 @@ while [[ $(date +%s) -lt $end_time ]]; do
     # Move the mouse to the computed location
     xdotool mousemove $x $y
 
-    sleep 1  # You can adjust this if you want more or fewer moves within that 1 minute.
+    sleep 1  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
 
 # Log the end time and a message to the file
