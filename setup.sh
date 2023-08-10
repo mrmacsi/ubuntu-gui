@@ -83,6 +83,16 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xdotool
 wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/move_limited.sh -P /home/macit/
 chmod +x /home/macit/move_limited.sh
 
+wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/open_teams.sh -P /home/macit/
+chown macit:macit open_teams.sh
+chmod u+rw open_teams.sh
+chmod +x /home/macit/open_teams.sh
+
+wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/close_teams.sh -P /home/macit/
+chown macit:macit close_teams.sh
+chmod u+rw close_teams.sh
+chmod +x /home/macit/close_teams.sh
+
 # Check if .xprofile exists, if not create one
 if [ ! -f /home/macit/.xprofile ]; then
     touch /home/macit/.xprofile
@@ -111,6 +121,18 @@ crontab mycron
 
 # Remove the temporary file
 rm mycron
+
+crontab -l -u macit > /tmp/macit_crontab
+
+# Append the new cron jobs to the temporary file
+echo "0 8 * * * /home/macit/open_teams.sh >> /home/macit/cron_browser_output.txt 2>&1" >> /tmp/macit_crontab
+echo "0 16 * * * /home/macit/close_teams.sh >> /home/macit/cron_browser_output.txt 2>&1" >> /tmp/macit_crontab
+
+# Load the updated crontab file for user macit
+crontab -u macit /tmp/macit_crontab
+
+# Remove the temporary crontab file
+rm /tmp/macit_crontab
 
 # Install Chromium browser
 echo ""
