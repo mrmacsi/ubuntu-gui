@@ -1,7 +1,19 @@
 #!/bin/bash
 
+# Log file path
+logfile="/home/macit/log.txt"
+
+if [ ! -f "$logfile" ]; then
+    touch "$logfile"
+fi
+
+# Log the start time to the file
+echo "Script started at: $(date)" >> $logfile
+
+export DISPLAY=:20
+
 # Get the end time (current time + 1 minute)
-end_time=$(($(date +%s) + 60))
+end_time=$(($(date +%s) + 40))
 
 while [[ $(date +%s) -lt $end_time ]]; do
     # Get screen width and height
@@ -29,5 +41,8 @@ while [[ $(date +%s) -lt $end_time ]]; do
     # Move the mouse to the computed location
     xdotool mousemove $x $y
 
-    sleep 10  # You can adjust this if you want more or fewer moves within that 1 minute.
+    sleep 4  # You can adjust this if you want more or fewer moves within that 1 minute.
 done
+
+# Log the end time and a message to the file
+echo "Script finished at: $(date) and exited." >> $logfile
