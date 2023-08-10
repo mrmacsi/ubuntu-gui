@@ -14,12 +14,13 @@ export DISPLAY=:20
 
 WINDOW_ID=37748738  # The ID of your Chromium window
 
-# Extracting details about the Chromium window
-GEOMETRY=$(xdotool getwindowgeometry $WINDOW_ID)
-WINDOW_WIDTH=$(echo $GEOMETRY | grep Geometry | awk '{print $2}' | cut -d'x' -f1)
-WINDOW_HEIGHT=$(echo $GEOMETRY | grep Geometry | awk '{print $2}' | cut -d'x' -f2 -s)
-X_POS=$(echo $GEOMETRY | grep Position | awk '{print $2}' | tr -d ',' | cut -d'x' -f1)
-Y_POS=$(echo $GEOMETRY | grep Position | awk '{print $2}' | tr -d ',' | cut -d'x' -f2)
+# Extracting X and Y positions of the Chromium window
+X_POS=$(xdotool getwindowgeometry $WINDOW_ID | grep Position | awk -F'[x,]' '{print $1}' | awk '{print $2}')
+Y_POS=$(xdotool getwindowgeometry $WINDOW_ID | grep Position | awk -F'[x,]' '{print $2}')
+
+# Extracting window dimensions
+WINDOW_WIDTH=$(xdotool getwindowgeometry $WINDOW_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f1)
+WINDOW_HEIGHT=$(xdotool getwindowgeometry $WINDOW_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f2)
 
 # Calculate the center of the Chromium window
 center_x=$((X_POS + WINDOW_WIDTH / 2))
@@ -28,10 +29,9 @@ center_y=$((Y_POS + WINDOW_HEIGHT / 2))
 # Get the end time (current time + 30 seconds)
 end_time=$(($(date +%s) + 30))
 
-while [[ $(date +%s) -lt $end_time ]]; do
-    # Define a range for randomness, e.g., 300 pixels in any direction
-    range=300
+range=200
 
+while [[ $(date +%s) -lt $end_time ]]; do
     # Calculate random offsets from the center
     random_x=$((RANDOM % (range*2 + 1) - range))
     random_y=$((RANDOM % (range*2 + 1) - range))
@@ -39,6 +39,12 @@ while [[ $(date +%s) -lt $end_time ]]; do
     # Compute the final random coordinates near the center of the Chromium window
     x=$((center_x + random_x))
     y=$((center_y + random_y))
+
+    # Ensure x and y are within the window's boundaries
+    if (( x < X_POS )); then x=$X_POS; fi
+    if (( x > (X_POS + WINDOW_WIDTH) )); then x=$((X_POS + WINDOW_WIDTH - 1)); fi
+    if (( y < Y_POS )); then y=$Y_POS; fi
+    if (( y > (Y_POS + WINDOW_HEIGHT) )); then y=$((Y_POS + WINDOW_HEIGHT - 1)); fi
 
     # Log the coordinates to the terminal
     echo "Moving mouse to: X=$x, Y=$y"
