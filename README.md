@@ -9,3 +9,6 @@ nohup sh -c "wget -O - https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main
 
 
 python3 cursor_overlay.py
+
+
+xhost +local:
