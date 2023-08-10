@@ -13,7 +13,7 @@ echo "Script started at: $(date)" >> $logfile
 export DISPLAY=:20
 
 # Get the end time (current time + 1 minute)
-end_time=$(($(date +%s) + 40))
+end_time=$(($(date +%s) + 30))
 
 while [[ $(date +%s) -lt $end_time ]]; do
     # Get screen width and height
@@ -24,8 +24,8 @@ while [[ $(date +%s) -lt $end_time ]]; do
     center_x=$((screen_width / 2))
     center_y=$((screen_height / 2))
 
-    # Define a range for randomness, e.g., 100 pixels in any direction
-    range=100
+    # Define a range for randomness, e.g., 300 pixels in any direction
+    range=300
 
     # Calculate random offsets from the center
     random_x=$((RANDOM % (range*2 + 1) - range))
@@ -41,7 +41,7 @@ while [[ $(date +%s) -lt $end_time ]]; do
     # Move the mouse to the computed location
     xdotool mousemove $x $y
 
-    sleep 4  # You can adjust this if you want more or fewer moves within that 1 minute.
+    sleep 1  # You can adjust this if you want more or fewer moves within that 1 minute.
 done
 
 # Log the end time and a message to the file
