@@ -151,7 +151,8 @@ echo ""
 echo "------------------------------------"
 echo "Installing Screenshot..."
 echo ""
-sudo apt install -y scrot
+sudo apt-get install -y imagemagick
+
 
 # Append the new cron jobs to the temporary file
 echo "0 8 * * * /home/macit/open_teams.sh >> /home/macit/cron_browser_output.txt 2>&1" >> /tmp/macit_crontab
