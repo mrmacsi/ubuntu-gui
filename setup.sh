@@ -80,8 +80,26 @@ echo "------------------------------------"
 echo "Installing Mouse Moving Tool..."
 echo ""
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xdotool
-wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/move.sh -P /home/macit/
-chmod +x /home/macit/move.sh
+wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/move_limited.sh -P /home/macit/
+chmod +x /home/macit/move_limited.sh
+
+logfile="/home/macit/cron_output.txt"
+
+if [ ! -f "$logfile" ]; then
+    touch "$logfile"
+fi
+
+# Save current crontab to a temporary file
+crontab -l > mycron
+
+# Append new cron job to the temporary file
+echo "* 8-16 * * * export DISPLAY=:20 && /home/macit/move_limited.sh >> /home/macit/cron_output.txt 2>&1" >> mycron
+
+# Install the updated cron jobs
+crontab mycron
+
+# Remove the temporary file
+rm mycron
 
 # Install Chromium browser
 echo ""
