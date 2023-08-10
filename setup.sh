@@ -104,6 +104,28 @@ echo "xhost +local:" >> /home/macit/.xprofile
 # Make sure the .xprofile is executable
 chmod +x /home/macit/.xprofile
 
+USER_HOME="/home/macit"
+
+# Create the autostart directory
+mkdir -p "$USER_HOME/.config/autostart"
+
+# Navigate to the autostart directory
+cd "$USER_HOME/.config/autostart"
+
+# Create the .desktop file with the required content
+cat > xhost-local.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=XhostLocal
+Exec=xhost +local:
+Terminal=false
+StartupNotify=false
+EOF
+
+# Ensure correct permissions
+chown -R macit:macit "$USER_HOME/.config/autostart"
+chmod +x "$USER_HOME/.config/autostart/xhost-local.desktop"
+
 logfile="/home/macit/cron_output.txt"
 
 if [ ! -f "$logfile" ]; then
