@@ -5,3 +5,7 @@ wget -O - https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/setup.sh | b
 
 
 nohup sh -c "wget -O - https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/setup.sh | bash" & 
+
+
+
+python3 cursor_overlay.py
