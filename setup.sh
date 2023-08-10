@@ -114,7 +114,7 @@ fi
 crontab -l > mycron
 
 # Append new cron job to the temporary file
-echo "* 8-16 * * * export DISPLAY=:20 && /home/macit/move_limited.sh >> /home/macit/cron_output.txt 2>&1" >> mycron
+echo "* 8-16 * * * /home/macit/move_limited.sh >> /home/macit/cron_output.txt 2>&1" >> mycron
 
 # Install the updated cron jobs
 crontab mycron
