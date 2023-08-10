@@ -12,17 +12,23 @@ echo "Script started at: $(date)" >> $logfile
 
 export DISPLAY=:20
 
-# Get the second occurrence of a window named "chromium"
-CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
+# Function to get the CHROMIUM_ID and check if it's empty
+get_chromium_id() {
+    CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
 
-# If CHROMIUM_ID is empty, echo an error message and exit
-if [ -z "$CHROMIUM_ID" ]; then
-    echo "Browser is closed." >&2
-    exit 1
-fi
+    # If CHROMIUM_ID is empty, echo an error message and exit
+    if [ -z "$CHROMIUM_ID" ]; then
+        echo "Browser is closed." >&2
+        exit 1
+    fi
+
+    echo "Chromium Window ID: $CHROMIUM_ID" >> $logfile
+}
 
 echo "Display set to: $DISPLAY" >> $logfile
-echo "Chromium Window ID: $CHROMIUM_ID" >> $logfile
+
+# First invocation of the function
+get_chromium_id
 
 # Extracting X and Y positions of the Chromium window
 X_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f1)
@@ -45,6 +51,9 @@ WINDOW_HEIGHT=$((WINDOW_HEIGHT - 2*PADDING))
 end_time=$(($(date +%s) + 30))
 
 while [[ $(date +%s) -lt $end_time ]]; do
+    # Check CHROMIUM_ID before moving
+    get_chromium_id
+    
     # Calculate random coordinates within the Chromium window with the padding on top and bottom
     x=$((X_POS + RANDOM % WINDOW_WIDTH))
     y=$((Y_POS + RANDOM % WINDOW_HEIGHT))
