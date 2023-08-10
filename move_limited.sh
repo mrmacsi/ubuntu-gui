@@ -28,7 +28,7 @@ WINDOW_HEIGHT=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{p
 echo "Chromium Dimensions: Width=$WINDOW_WIDTH, Height=$WINDOW_HEIGHT" >> $logfile
 
 # Define padding
-PADDING=300
+PADDING=350
 
 # Adjust only the Y_POS and WINDOW_HEIGHT to account for padding at the top and bottom
 Y_POS=$((Y_POS + PADDING))
