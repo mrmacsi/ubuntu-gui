@@ -9,7 +9,6 @@ if [ ! -f "$logfile" ]; then
 fi
 
 echo "Script started at: $(date)" >> $logfile
-echo "Display set to: $DISPLAY" >> $logfile
 
 export DISPLAY=:20
 
@@ -22,6 +21,7 @@ if [ -z "$CHROMIUM_ID" ]; then
     exit 1
 fi
 
+echo "Display set to: $DISPLAY" >> $logfile
 echo "Chromium Window ID: $CHROMIUM_ID" >> $logfile
 
 # Extracting X and Y positions of the Chromium window
