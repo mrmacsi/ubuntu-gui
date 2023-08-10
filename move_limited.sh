@@ -46,7 +46,7 @@ while [[ $(date +%s) -lt $end_time ]]; do
     echo "Moving mouse to: X=$x, Y=$y" | tee -a $logfile
 
     # Move the mouse to the computed location
-    xdotool mousemove $x $y
+    xdotool mousemove --sync $x $y
 
     sleep 1  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
