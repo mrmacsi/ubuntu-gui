@@ -146,6 +146,13 @@ rm mycron
 
 crontab -l -u macit > /tmp/macit_crontab
 
+# Install Screenshot
+echo ""
+echo "------------------------------------"
+echo "Installing Screenshot..."
+echo ""
+sudo apt install -y scrot
+
 # Append the new cron jobs to the temporary file
 echo "0 8 * * * /home/macit/open_teams.sh >> /home/macit/cron_browser_output.txt 2>&1" >> /tmp/macit_crontab
 echo "0 16 * * * /home/macit/close_teams.sh >> /home/macit/cron_browser_output.txt 2>&1" >> /tmp/macit_crontab
