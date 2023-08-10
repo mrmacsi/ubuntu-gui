@@ -18,7 +18,7 @@ get_chromium_id() {
 
     # If CHROMIUM_ID is empty, echo an error message and exit
     if [ -z "$CHROMIUM_ID" ]; then
-        echo "Browser is closed." >&2
+        echo "Browser was closed at: $(date)" >> $logfile
         exit 1
     fi
 
