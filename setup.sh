@@ -83,6 +83,17 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y xdotool
 wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/move_limited.sh -P /home/macit/
 chmod +x /home/macit/move_limited.sh
 
+# Check if .xprofile exists, if not create one
+if [ ! -f /home/macit/.xprofile ]; then
+    touch /home/macit/.xprofile
+fi
+
+# Add the xhost command to .xprofile
+echo "xhost +local:" >> /home/macit/.xprofile
+
+# Make sure the .xprofile is executable
+chmod +x /home/macit/.xprofile
+
 logfile="/home/macit/cron_output.txt"
 
 if [ ! -f "$logfile" ]; then
