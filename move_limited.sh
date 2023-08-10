@@ -27,11 +27,18 @@ WINDOW_WIDTH=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{pr
 WINDOW_HEIGHT=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f2)
 echo "Chromium Dimensions: Width=$WINDOW_WIDTH, Height=$WINDOW_HEIGHT" >> $logfile
 
+# Define padding
+PADDING=200
+
+# Adjust only the Y_POS and WINDOW_HEIGHT to account for padding at the top and bottom
+Y_POS=$((Y_POS + PADDING))
+WINDOW_HEIGHT=$((WINDOW_HEIGHT - 2*PADDING))
+
 # Get the end time (current time + 30 seconds)
 end_time=$(($(date +%s) + 30))
 
 while [[ $(date +%s) -lt $end_time ]]; do
-    # Calculate random coordinates within the Chromium window
+    # Calculate random coordinates within the Chromium window with the padding on top and bottom
     x=$((X_POS + RANDOM % WINDOW_WIDTH))
     y=$((Y_POS + RANDOM % WINDOW_HEIGHT))
 
