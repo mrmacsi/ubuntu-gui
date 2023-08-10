@@ -84,13 +84,13 @@ wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/move_limited.sh -
 chmod +x /home/macit/move_limited.sh
 
 wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/open_teams.sh -P /home/macit/
-chown macit:macit open_teams.sh
-chmod u+rw open_teams.sh
+chown macit:macit /home/macit/open_teams.sh
+chmod u+rw /home/macit/open_teams.sh
 chmod +x /home/macit/open_teams.sh
 
 wget https://raw.githubusercontent.com/mrmacsi/ubuntu-gui/main/close_teams.sh -P /home/macit/
-chown macit:macit close_teams.sh
-chmod u+rw close_teams.sh
+chown macit:macit /home/macit/close_teams.sh
+chmod u+rw /home/macit/close_teams.sh
 chmod +x /home/macit/close_teams.sh
 
 # Check if .xprofile exists, if not create one
