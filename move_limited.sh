@@ -73,7 +73,7 @@ done
 
 # Check if the current minute is divisible by 10
 current_minute=$(date +"%M")
-if (( current_minute % 10 == 0 )); then
+if (( current_minute % 2 == 0 )); then
     # Check if directory exists
     if [ ! -d "$SCREENSHOT_DIRECTORY" ]; then
         mkdir -p "$SCREENSHOT_DIRECTORY"
