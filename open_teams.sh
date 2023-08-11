@@ -16,8 +16,13 @@ if [ -z "$CHROMIUM_PATH" ]; then
     exit 1
 fi
 
-# Open the URL using chromium-browser path
-$CHROMIUM_PATH 'https://teams.microsoft.com/_?culture=en-gb&country=gb#/conversations/48:notes?ctx=chat' &
+CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
+
+# If CHROMIUM_ID is empty, echo an error message and exit
+if [ -z "$CHROMIUM_ID" ]; then
+    # Open the URL using chromium-browser path
+    $CHROMIUM_PATH 'https://teams.microsoft.com/_?culture=en-gb&country=gb#/conversations/48:notes?ctx=chat' &
+fi
 
 # Exit the script
 exit 0
