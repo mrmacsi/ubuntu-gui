@@ -73,6 +73,12 @@ done
 # Get the current timestamp
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 
+echo "WINDOW_WIDTH: $WINDOW_WIDTH" >> "$logfile"
+echo "WINDOW_HEIGHT: $WINDOW_HEIGHT" >> "$logfile"
+echo "X_POS: $X_POS" >> "$logfile"
+echo "Y_POS: $Y_POS" >> "$logfile"
+echo "TIMESTAMP: $TIMESTAMP" >> "$logfile"
+
 # Capture a screenshot of the Chromium window with the timestamp in the filename
 import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}storage${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png"
 
