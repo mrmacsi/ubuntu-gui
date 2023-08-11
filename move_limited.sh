@@ -76,6 +76,8 @@ TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 # Capture a screenshot of the Chromium window with the timestamp in the filename
 import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}screenshot_${TIMESTAMP}.png"
 
+php artisan screenshot:log "${LARAVEL_PATH}screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
+
 echo "Screenshot screenshot_${TIMESTAMP}.png taken." >> $logfile
 
 echo "Script finished at: $(date) and exited." >> $logfile
