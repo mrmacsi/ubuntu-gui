@@ -3,7 +3,7 @@
 # Log file path
 logfile="/home/macit/log.txt"
 LARAVEL_PATH="/var/www/work.codepark.co.uk/html/work-server-screen/"
-SCREENSHOT_FOLDER="storage/screenshots/"
+SCREENSHOT_FOLDER="/screenshots/"
 
 # Ensure the log file exists
 if [ ! -f "$logfile" ]; then
@@ -75,9 +75,9 @@ CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 
 # Capture a screenshot of the Chromium window with the timestamp in the filename
-import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png"
+import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}storage${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png"
 
-php "$LARAVEL_PATH"artisan screenshot:log "${LARAVEL_PATH}${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
+php "$LARAVEL_PATH"artisan screenshot:log "${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
 
 echo "Screenshot screenshot_${TIMESTAMP}.png taken." >> $logfile
 
