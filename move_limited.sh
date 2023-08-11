@@ -67,7 +67,7 @@ while [[ $(date +%s) -lt $end_time ]]; do
     # Move the mouse to the computed location
     xdotool mousemove --sync $x $y
 
-    sleep 1  # Adjust this if you want more or fewer moves within that 30 seconds.
+    sleep 3  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
 
 # Get the current timestamp
