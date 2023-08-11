@@ -97,7 +97,7 @@ if (( current_minute % 10 == 0 )); then
     # Capture a screenshot of the Chromium window with the timestamp in the filename
     import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${SCREENSHOT_DIRECTORY}screenshot_${TIMESTAMP}.png"
     
-    php "$LARAVEL_PATH"artisan screenshot:log "${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
+    php "$LARAVEL_PATH"artisan screenshot:log "screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
     
     echo "Screenshot screenshot_${TIMESTAMP}.png taken." >> $logfile
 fi
