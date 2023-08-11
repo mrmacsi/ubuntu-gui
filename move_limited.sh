@@ -44,7 +44,7 @@ WINDOW_HEIGHT=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{p
 echo "Chromium Dimensions: Width=$WINDOW_WIDTH, Height=$WINDOW_HEIGHT" >> $logfile
 
 # Define padding
-PADDING=350
+PADDING=200
 
 # Adjust only the Y_POS and WINDOW_HEIGHT to account for padding at the top and bottom
 Y_POS=$((Y_POS + PADDING))
@@ -72,6 +72,11 @@ done
 
 # Get the current timestamp
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+X_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f1)
+Y_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f2 | cut -d' ' -f1)
+# Extracting window dimensions
+WINDOW_WIDTH=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f1)
+WINDOW_HEIGHT=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f2)
 
 echo "WINDOW_WIDTH: $WINDOW_WIDTH" >> "$logfile"
 echo "WINDOW_HEIGHT: $WINDOW_HEIGHT" >> "$logfile"
