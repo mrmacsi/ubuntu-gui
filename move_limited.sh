@@ -70,25 +70,29 @@ while [[ $(date +%s) -lt $end_time ]]; do
     sleep 3  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
 
-# Get the current timestamp
-TIMESTAMP=$(date +"%Y%m%d%H%M%S")
-X_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f1)
-Y_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f2 | cut -d' ' -f1)
-# Extracting window dimensions
-WINDOW_WIDTH=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f1)
-WINDOW_HEIGHT=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f2)
-
-echo "WINDOW_WIDTH: $WINDOW_WIDTH" >> "$logfile"
-echo "WINDOW_HEIGHT: $WINDOW_HEIGHT" >> "$logfile"
-echo "X_POS: $X_POS" >> "$logfile"
-echo "Y_POS: $Y_POS" >> "$logfile"
-echo "TIMESTAMP: $TIMESTAMP" >> "$logfile"
-
-# Capture a screenshot of the Chromium window with the timestamp in the filename
-import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}storage${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png"
-
-php "$LARAVEL_PATH"artisan screenshot:log "${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
-
-echo "Screenshot screenshot_${TIMESTAMP}.png taken." >> $logfile
+# Check if the current minute is divisible by 10
+current_minute=$(date +"%M")
+if (( current_minute % 10 == 0 )); then
+    # Get the current timestamp
+    TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+    X_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f1)
+    Y_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f2 | cut -d' ' -f1)
+    # Extracting window dimensions
+    WINDOW_WIDTH=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f1)
+    WINDOW_HEIGHT=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f2)
+    
+    echo "WINDOW_WIDTH: $WINDOW_WIDTH" >> "$logfile"
+    echo "WINDOW_HEIGHT: $WINDOW_HEIGHT" >> "$logfile"
+    echo "X_POS: $X_POS" >> "$logfile"
+    echo "Y_POS: $Y_POS" >> "$logfile"
+    echo "TIMESTAMP: $TIMESTAMP" >> "$logfile"
+    
+    # Capture a screenshot of the Chromium window with the timestamp in the filename
+    import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}storage${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png"
+    
+    php "$LARAVEL_PATH"artisan screenshot:log "${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
+    
+    echo "Screenshot screenshot_${TIMESTAMP}.png taken." >> $logfile
+fi
 
 echo "Script finished at: $(date) and exited." >> $logfile
