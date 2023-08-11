@@ -4,6 +4,7 @@
 logfile="/home/macit/log.txt"
 LARAVEL_PATH="/var/www/work.codepark.co.uk/html/work-server-screen/"
 SCREENSHOT_FOLDER="/screenshots/"
+SCREENSHOT_DIRECTORY="${LARAVEL_PATH}storage${SCREENSHOT_FOLDER}"
 
 # Ensure the log file exists
 if [ ! -f "$logfile" ]; then
@@ -73,6 +74,12 @@ done
 # Check if the current minute is divisible by 10
 current_minute=$(date +"%M")
 if (( current_minute % 10 == 0 )); then
+    # Check if directory exists
+    if [ ! -d "$SCREENSHOT_DIRECTORY" ]; then
+        mkdir -p "$SCREENSHOT_DIRECTORY"
+        echo "Directory $SCREENSHOT_DIRECTORY created."
+    fi
+    
     # Get the current timestamp
     TIMESTAMP=$(date +"%Y%m%d%H%M%S")
     X_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f1)
@@ -88,7 +95,7 @@ if (( current_minute % 10 == 0 )); then
     echo "TIMESTAMP: $TIMESTAMP" >> "$logfile"
     
     # Capture a screenshot of the Chromium window with the timestamp in the filename
-    import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}storage${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png"
+    import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${SCREENSHOT_DIRECTORY}screenshot_${TIMESTAMP}.png"
     
     php "$LARAVEL_PATH"artisan screenshot:log "${SCREENSHOT_FOLDER}screenshot_${TIMESTAMP}.png" "macit@codepark.co.uk"
     
