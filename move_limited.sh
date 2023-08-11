@@ -23,11 +23,12 @@ get_chromium_id() {
         echo "Browser was closed at: $(date)" >> $logfile
         exit 1
     fi
-
-    echo "Chromium Window ID: $CHROMIUM_ID" >> $logfile
 }
 
+CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
+
 echo "Display set to: $DISPLAY" >> $logfile
+echo "Chromium Window ID: $CHROMIUM_ID" >> $logfile
 
 # First invocation of the function
 get_chromium_id
@@ -68,8 +69,6 @@ while [[ $(date +%s) -lt $end_time ]]; do
 
     sleep 1  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
-
-CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
 
 # Get the current timestamp
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
