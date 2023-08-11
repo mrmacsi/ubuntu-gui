@@ -2,6 +2,7 @@
 
 # Log file path
 logfile="/home/macit/log.txt"
+LARAVEL_PATH="/var/www/work.codepark.co.uk/html/work-server-screen/storage/screenshots/"
 
 # Ensure the log file exists
 if [ ! -f "$logfile" ]; then
@@ -66,5 +67,15 @@ while [[ $(date +%s) -lt $end_time ]]; do
 
     sleep 1  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
+
+CHROMIUM_ID=$(xdotool search --name "chromium" | awk 'NR==2')
+
+# Get the current timestamp
+TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+
+# Capture a screenshot of the Chromium window with the timestamp in the filename
+import -window "$CHROMIUM_ID" -crop "${WINDOW_WIDTH}x${WINDOW_HEIGHT}+${X_POS}+${Y_POS}" "${LARAVEL_PATH}screenshot_${TIMESTAMP}.png"
+
+echo "Screenshot screenshot_${TIMESTAMP}.png taken." >> $logfile
 
 echo "Script finished at: $(date) and exited." >> $logfile
