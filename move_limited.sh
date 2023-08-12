@@ -2,7 +2,7 @@
 
 # Log file path
 logfile="/home/macit/log.txt"
-LARAVEL_PATH="/var/www/work.codepark.co.uk/html/work-server-screen/"
+LARAVEL_PATH="/home/macit/work-server-screen/"
 SCREENSHOT_FOLDER="screenshots/"
 SCREENSHOT_DIRECTORY="${LARAVEL_PATH}storage/${SCREENSHOT_FOLDER}"
 
