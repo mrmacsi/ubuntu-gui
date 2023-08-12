@@ -71,9 +71,11 @@ while [[ $(date +%s) -lt $end_time ]]; do
     sleep 3  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
 
-# Check if the current minute is divisible by 10
+SCREENSHOT_TIME=$(php "$LARAVEL_PATH/artisan" screenshot:time)
+
+# Check if the current minute is divisible by SCREENSHOT_TIME
 current_minute=$(date +"%M")
-if (( current_minute % 10 == 0 )); then
+if (( current_minute % $SCREENSHOT_TIME == 0 )); then
     # Check if directory exists
     if [ ! -d "$SCREENSHOT_DIRECTORY" ]; then
         mkdir -p "$SCREENSHOT_DIRECTORY"
