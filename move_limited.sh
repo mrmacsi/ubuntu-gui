@@ -84,7 +84,7 @@ if (( current_minute % $SCREENSHOT_TIME == 0 )); then
     
     # Get the current timestamp
     TIMESTAMP=$(date +"%Y%m%d%H%M%S")
-    X_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f1)
+    X_POS=0
     Y_POS=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Position | awk '{print $2}' | cut -d',' -f2 | cut -d' ' -f1)
     # Extracting window dimensions
     WINDOW_WIDTH=$(xdotool getwindowgeometry $CHROMIUM_ID | grep Geometry | awk '{print $2}' | cut -d'x' -f1)
