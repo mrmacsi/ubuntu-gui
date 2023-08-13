@@ -20,7 +20,10 @@ if [ -z "$CHROMIUM_ID" ]; then
         Xvfb :20 -screen 0 1280x1024x24 &
         sleep 1
     fi
+    
     php "$LARAVEL_PATH"artisan set:status "on"
+    php "$LARAVEL_PATH"artisan add:activity "browswer_opened"
+    
     # Open the URL using chromium-browser path
     $CHROMIUM_PATH 'https://teams.microsoft.com/_?culture=en-gb&country=gb#/conversations/48:notes?ctx=chat' &
 fi
