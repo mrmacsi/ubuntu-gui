@@ -18,19 +18,19 @@ EXECUTE=$(echo "$VARIABLES" | jq -r '.EXECUTE')
 
 # If EXECUTE is not set to 'on', stop the script
 if [ "$EXECUTE" != "on" ]; then
-    echo "Execution is turned off. Exiting... $(date)" >> $logfile
+    echo "Execution is turned off. Exiting... $(date)"
     exit 0
 fi
 
 # If the current time is before the start hour and minute, stop the script
 if [ "$CURRENT_HOUR" -lt "$START_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$START_HOUR" ] && [ "$CURRENT_MINUTE" -lt "$START_TIME" ]); then
-    echo "It's before the start time. Exiting... $(date)" >> $logfile
+    echo "It's before the start time. Exiting... $(date)"
     exit 0
 fi
 
 # If the current time is after the end hour and minute, stop the script
 if [ "$CURRENT_HOUR" -gt "$END_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$END_HOUR" ] && [ "$CURRENT_MINUTE" -gt "$END_TIME" ]); then
-    echo "It's past the end time. Exiting... $(date)" >> $logfile
+    echo "It's past the end time. Exiting... $(date)"
     exit 0
 fi
 
