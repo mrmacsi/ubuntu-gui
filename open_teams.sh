@@ -29,7 +29,8 @@ if [ "$CURRENT_HOUR" -lt "$START_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$START_HOUR"
 fi
 
 # If the current time is after the end hour and minute, stop the script
-if [ "$CURRENT_HOUR" -gt "$END_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$END_HOUR" ] && [ "$CURRENT_MINUTE" -gt "$END_TIME" ]); then
+if [ "$CURRENT_HOUR" -gt "$END_HOUR" ] || 
+   ([ "$CURRENT_HOUR" -eq "$END_HOUR" ] && [ "$CURRENT_MINUTE" -ge "$((END_TIME-1))" ]); then
     echo "It's past the end time. Exiting... $(date)"
     exit 0
 fi
