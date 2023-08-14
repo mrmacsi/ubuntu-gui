@@ -2,13 +2,45 @@
 
 # Log file path
 logfile="/home/macit/log.txt"
-LARAVEL_PATH="/home/macit/work-server-screen/"
-SCREENSHOT_FOLDER="screenshots/"
-SCREENSHOT_DIRECTORY="${LARAVEL_PATH}storage/${SCREENSHOT_FOLDER}"
 
 # Ensure the log file exists
 if [ ! -f "$logfile" ]; then
     touch "$logfile"
+fi
+
+LARAVEL_PATH="/home/macit/work-server-screen/"
+SCREENSHOT_FOLDER="screenshots/"
+SCREENSHOT_DIRECTORY="${LARAVEL_PATH}storage/${SCREENSHOT_FOLDER}"
+
+VARIABLES=$(php "$LARAVEL_PATH/artisan" variables)
+
+CURRENT_HOUR=$(date +"%H")
+CURRENT_MINUTE=$(date +"%M")
+
+# Parse JSON using jq
+START_HOUR=$(echo "$VARIABLES" | jq -r '.START_HOUR')
+START_TIME=$(echo "$VARIABLES" | jq -r '.START_TIME')
+END_HOUR=$(echo "$VARIABLES" | jq -r '.END_HOUR')
+END_TIME=$(echo "$VARIABLES" | jq -r '.END_TIME')
+SCREENSHOT_TIME=$(echo "$VARIABLES" | jq -r '.SCREENSHOT_TIME')
+EXECUTE=$(echo "$VARIABLES" | jq -r '.EXECUTE')
+
+# If EXECUTE is not set to 'on', stop the script
+if [ "$EXECUTE" != "on" ]; then
+    echo "Execution is turned off. Exiting... $(date)" >> $logfile
+    exit 0
+fi
+
+# If the current time is before the start hour and minute, stop the script
+if [ "$CURRENT_HOUR" -lt "$START_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$START_HOUR" ] && [ "$CURRENT_MINUTE" -lt "$START_TIME" ]); then
+    echo "It's before the start time. Exiting... $(date)" >> $logfile
+    exit 0
+fi
+
+# If the current time is after the end hour and minute, stop the script
+if [ "$CURRENT_HOUR" -gt "$END_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$END_HOUR" ] && [ "$CURRENT_MINUTE" -gt "$END_TIME" ]); then
+    echo "It's past the end time. Exiting... $(date)" >> $logfile
+    exit 0
 fi
 
 echo "Script started at: $(date)" >> $logfile
@@ -71,11 +103,7 @@ while [[ $(date +%s) -lt $end_time ]]; do
     sleep 3  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
 
-SCREENSHOT_TIME=$(php "$LARAVEL_PATH/artisan" screenshot:time)
-
-# Check if the current minute is divisible by SCREENSHOT_TIME
-current_minute=$(date +"%M")
-if (( current_minute % $SCREENSHOT_TIME == 0 )); then
+if (( CURRENT_MINUTE % $SCREENSHOT_TIME == 0 )); then
     # Check if directory exists
     if [ ! -d "$SCREENSHOT_DIRECTORY" ]; then
         mkdir -p "$SCREENSHOT_DIRECTORY"
