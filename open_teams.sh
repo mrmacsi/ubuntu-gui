@@ -4,6 +4,36 @@
 export DISPLAY=:20
 LARAVEL_PATH="/home/macit/work-server-screen/"
 
+VARIABLES=$(php "$LARAVEL_PATH/artisan" variables)
+
+CURRENT_HOUR=$(date +"%H")
+CURRENT_MINUTE=$(date +"%M")
+
+# Parse JSON using jq
+START_HOUR=$(echo "$VARIABLES" | jq -r '.START_HOUR')
+START_TIME=$(echo "$VARIABLES" | jq -r '.START_TIME')
+END_HOUR=$(echo "$VARIABLES" | jq -r '.END_HOUR')
+END_TIME=$(echo "$VARIABLES" | jq -r '.END_TIME')
+EXECUTE=$(echo "$VARIABLES" | jq -r '.EXECUTE')
+
+# If EXECUTE is not set to 'on', stop the script
+if [ "$EXECUTE" != "on" ]; then
+    echo "Execution is turned off. Exiting... $(date)" >> $logfile
+    exit 0
+fi
+
+# If the current time is before the start hour and minute, stop the script
+if [ "$CURRENT_HOUR" -lt "$START_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$START_HOUR" ] && [ "$CURRENT_MINUTE" -lt "$START_TIME" ]); then
+    echo "It's before the start time. Exiting... $(date)" >> $logfile
+    exit 0
+fi
+
+# If the current time is after the end hour and minute, stop the script
+if [ "$CURRENT_HOUR" -gt "$END_HOUR" ] || ([ "$CURRENT_HOUR" -eq "$END_HOUR" ] && [ "$CURRENT_MINUTE" -gt "$END_TIME" ]); then
+    echo "It's past the end time. Exiting... $(date)" >> $logfile
+    exit 0
+fi
+
 # Try to find the location of Chromium
 CHROMIUM_PATH=$(which chromium)
 if [ -z "$CHROMIUM_PATH" ]; then
