@@ -52,7 +52,7 @@ if [ -z "$CHROMIUM_ID" ]; then
     fi
     
     php "$LARAVEL_PATH"artisan set:status "on"
-    php "$LARAVEL_PATH"artisan add:activity "browswer_opened"
+    php "$LARAVEL_PATH"artisan add:activity "browser_opened"
     
     # Open the URL using chromium-browser path
     $CHROMIUM_PATH 'https://teams.microsoft.com/_?culture=en-gb&country=gb#/conversations/48:notes?ctx=chat' &
