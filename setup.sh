@@ -31,12 +31,13 @@ echo "Installing SLiM Display Manager..."
 echo ""
 echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
 
-# Install Ubuntu desktop environment
+# Install Ubuntu minimal desktop environment
 echo ""
 echo "------------------------------------"
-echo "Installing Ubuntu desktop environment..."
+echo "Installing Ubuntu minimal desktop environment..."
 echo ""
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends lubuntu-desktop
+#sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends lubuntu-desktop
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ubuntu-desktop-minimal
 
 # Add user 'macit'
 echo ""
