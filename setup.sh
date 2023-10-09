@@ -167,6 +167,12 @@ sudo apt-get update
 sudo apt-get install -f
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
+gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
+
+
 # Reboot
 echo ""
 echo "------------------------------------"
