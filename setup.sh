@@ -160,7 +160,12 @@ echo ""
 echo "------------------------------------"
 echo "Installing Chromium browser..."
 echo ""
-sudo snap install chromium --classic
+sudo chown macit:macit /home/macit/.config
+sudo chmod 755 /home/macit/.config
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt-get update
+sudo apt-get install -f
+sudo dpkg -i google-chrome-stable_current_amd64.deb
 
 # Reboot
 echo ""
