@@ -172,6 +172,7 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'nothing'
 gsettings set org.gnome.desktop.screensaver idle-activation-enabled false
 
+sudo timedatectl set-timezone Europe/London
 
 # Reboot
 echo ""
