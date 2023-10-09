@@ -24,20 +24,12 @@ echo "Upgrading packages and keeping local changes to config files..."
 echo ""
 sudo DEBIAN_FRONTEND=noninteractive UCF_FORCE_CONFFOLD=1 apt-get -o Dpkg::Options::="--force-confold" --assume-yes -y upgrade
 
-# Install SLiM Display Manager
+# Install Ubuntu desktop environment
 echo ""
 echo "------------------------------------"
-echo "Installing SLiM Display Manager..."
+echo "Installing Ubuntu desktop environment..."
 echo ""
-echo "slim" | sudo DEBIAN_FRONTEND=noninteractive apt-get install -y slim
-
-# Install Ubuntu minimal desktop environment
-echo ""
-echo "------------------------------------"
-echo "Installing Ubuntu minimal desktop environment..."
-echo ""
-#sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends lubuntu-desktop
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ubuntu-desktop-minimal
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ubuntu-desktop
 
 # Add user 'macit'
 echo ""
@@ -45,7 +37,6 @@ echo "------------------------------------"
 echo "Adding user 'macit'..."
 echo ""
 sudo adduser macit --disabled-password --gecos 'Macit,,,,'
-
 # Set password for user 'macit'
 echo ""
 echo "------------------------------------"
@@ -153,7 +144,6 @@ echo "------------------------------------"
 echo "Installing Screenshot..."
 echo ""
 sudo apt-get install -y imagemagick
-
 
 # Append the new cron jobs to the temporary file
 echo "0 8 * * * /home/macit/open_teams.sh >> /home/macit/cron_browser_output.txt 2>&1" >> /tmp/macit_crontab
