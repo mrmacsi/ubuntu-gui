@@ -100,7 +100,7 @@ while [[ $(date +%s) -lt $end_time ]]; do
     # Move the mouse to the computed location
     xdotool mousemove --sync $x $y
 
-    sleep 3  # Adjust this if you want more or fewer moves within that 30 seconds.
+    sleep 6  # Adjust this if you want more or fewer moves within that 30 seconds.
 done
 
 if (( CURRENT_MINUTE % $SCREENSHOT_TIME == 0 )); then
