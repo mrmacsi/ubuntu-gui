@@ -18,6 +18,7 @@ EXECUTE=$(echo "$VARIABLES" | jq -r '.EXECUTE')
 
 # If EXECUTE is not set to 'on', stop the script
 if [ "$EXECUTE" != "on" ]; then
+    php "$LARAVEL_PATH"artisan add:activity "execution_off"
     echo "Execution is turned off. Exiting... $(date)"
     exit 0
 fi
