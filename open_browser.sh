@@ -10,6 +10,7 @@ URL_TO_OPEN="$1"
 # Get the current time in HH:MM format
 CURRENT_TIME=$(date +"%H:%M")
 
+
 # Parse JSON using jq
 VARIABLES=$(php "$LARAVEL_PATH/artisan" variables)
 SCHEDULED_EXECUTION_TIME=$(echo "$VARIABLES" | jq -r '.SCHEDULED_EXECUTION_TIME') # format: HH:MM
