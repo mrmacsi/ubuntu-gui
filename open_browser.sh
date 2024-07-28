@@ -4,16 +4,20 @@
 export DISPLAY=:20
 LARAVEL_PATH="/home/macit/work-server-screen/"
 
+# Check if the URL to open is provided as a parameter
+if [ -z "$1" ]; then
+    echo "Error: No URL provided. Exiting... $(date)"
+    exit 1
+fi
+
 # The URL to open is received as a parameter
 URL_TO_OPEN="$1"
 
 # Get the current time in HH:MM format
 CURRENT_TIME=$(date +"%H:%M")
 
-
-# Parse JSON using jq
-VARIABLES=$(php "$LARAVEL_PATH/artisan" variables)
-SCHEDULED_EXECUTION_TIME=$(echo "$VARIABLES" | jq -r '.SCHEDULED_EXECUTION_TIME') # format: HH:MM
+# Retrieve the scheduled execution time from the database
+SCHEDULED_EXECUTION_TIME=$(php -r "echo \DB::table('settings')->where('key', 'scheduled_execution_time')->value('value');")
 
 # If the current time does not match the scheduled execution time, stop the script
 if [ "$CURRENT_TIME" != "$SCHEDULED_EXECUTION_TIME" ]; then
