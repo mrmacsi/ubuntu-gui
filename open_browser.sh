@@ -20,12 +20,6 @@ CURRENT_TIME=$(date +"%H:%M")
 VARIABLES=$(php "$LARAVEL_PATH/artisan" variables)
 SCHEDULED_EXECUTION_TIME=$(echo "$VARIABLES" | jq -r '.SCHEDULED_EXECUTION_TIME') # format: HH:MM
 
-# If the current time does not match the scheduled execution time, stop the script
-if [ "$CURRENT_TIME" != "$SCHEDULED_EXECUTION_TIME" ]; then
-    echo "It's not the scheduled execution time. Exiting... $(date)"
-    exit 0
-fi
-
 # Try to find the location of Chromium
 CHROMIUM_PATH=$(which chromium)
 if [ -z "$CHROMIUM_PATH" ]; then
