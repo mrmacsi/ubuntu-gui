@@ -17,9 +17,9 @@ if [ "$FLIGHT_STATUS" == "false" ]; then
   # Log the activity
   php "$LARAVEL_PATH/artisan" add:activity "browser_closed"
 
+  php "$LARAVEL_PATH/artisan" set:flight "on"
+
   echo "Google Flights on Chromium closed."
-else
-  echo "Flight status is not false, skipping browser closure."
 fi
 
 # Exit the script
